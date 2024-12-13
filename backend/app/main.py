@@ -15,6 +15,9 @@ JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 # FastAPI instance
 app = FastAPI()
 
+
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -44,6 +47,15 @@ def verify_password(plain_password, hashed_password):
 
 def get_password_hash(password):
     return pwd_context.hash(password)
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the Social Media Post Scheduler"}
+
 
 @app.post("/signup")
 async def signup(user: User):
