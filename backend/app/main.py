@@ -1,10 +1,13 @@
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
 import mysql.connector
+from fastapi.staticfiles import StaticFiles
+
 
 load_dotenv()  # Load environment variables from .env
 
@@ -16,6 +19,8 @@ JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 app = FastAPI()
 
 
+
+# Serve static files from the 'frontend' folder
 app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
 # Password hashing
@@ -52,10 +57,14 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the Social Media Post Scheduler"}
-
+@app.get("/", response_class=HTMLResponse)
+def read_home():
+    try:
+        with open("frontend/index.html", "r") as f:
+            return HTMLResponse(content=f.read())
+    except FileNotFoundError:
+        return HTMLResponse(content="404 Not Found", status_code=404)
+    
 
 @app.post("/signup")
 async def signup(user: User):
