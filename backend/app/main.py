@@ -109,3 +109,9 @@ async def login_for_access_token(form_data: User):
 @app.get("/dashboard")
 async def dashboard(token: str = Depends(oauth2_scheme)):
     return {"message": "Welcome to the dashboard!"}
+
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", 80)))
