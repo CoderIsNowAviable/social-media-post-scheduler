@@ -1,0 +1,23 @@
+/* Add your CSS styles here */
+body {
+    font-family: Arial, sans-serif;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  #hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+  }
+  #hero .hero-text {
+    max-width: 50%;
+  }
+  footer {
+    text-align: center;
+    padding: 20px;
+  }
+  

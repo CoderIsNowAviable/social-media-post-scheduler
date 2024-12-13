@@ -1,0 +1,10 @@
+# Ignore environment variables and other sensitive files
+.env
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore frontend build artifacts if any
+node_modules/
+dist/
