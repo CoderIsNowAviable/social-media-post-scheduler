@@ -58,12 +58,14 @@ from fastapi import FastAPI
 app = FastAPI()
 
 @app.get("/", response_class=HTMLResponse)
+@app.head("/", response_class=HTMLResponse)
 def read_home():
     try:
         with open("frontend/index.html", "r") as f:
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
         return HTMLResponse(content="404 Not Found", status_code=404)
+
     
 
 @app.post("/signup")
